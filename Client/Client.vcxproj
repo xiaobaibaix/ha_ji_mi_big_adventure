@@ -104,10 +104,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\..\Thirdparty\SDL2\include;.\..\Thirdparty\SDL2_gfx\include;.\..\Thirdparty\SDL2_image\include;.\..\Thirdparty\SDL2_mixer\include;.\..\Thirdparty\SDL2_ttf\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.\..\Thirdparty\SDL2_ttf\lib\x64;.\..\Thirdparty\SDL2_gfx\lib\x64;.\..\Thirdparty\SDL2_image\lib\x64;.\..\Thirdparty\SDL2_mixer\lib\x64;.\..\Thirdparty\SDL2\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_gfx.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -118,16 +121,33 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\..\Thirdparty\SDL2\include;.\..\Thirdparty\SDL2_gfx\include;.\..\Thirdparty\SDL2_image\include;.\..\Thirdparty\SDL2_mixer\include;.\..\Thirdparty\SDL2_ttf\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>.\..\Thirdparty\SDL2_ttf\lib\x64;.\..\Thirdparty\SDL2_gfx\lib\x64;.\..\Thirdparty\SDL2_image\lib\x64;.\..\Thirdparty\SDL2_mixer\lib\x64;.\..\Thirdparty\SDL2\lib\x64</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_gfx.lib;SDL2_image.lib;SDL2_mixer.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="Atlas.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Manager_game.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Vector2D.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Animation.h" />
+    <ClInclude Include="Atlas.h" />
+    <ClInclude Include="Manager.h" />
+    <ClInclude Include="Manager_game.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="util.h" />
+    <ClInclude Include="Vector2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
