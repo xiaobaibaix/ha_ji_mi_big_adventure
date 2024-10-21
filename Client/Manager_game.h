@@ -9,8 +9,9 @@ class Manager_game :public Manager<Manager_game>
 public:
 	int run(int argc, char** argv);
 
-public:
-	bool is_debug = false;
+
+	SDL_Renderer* get_renderer()const { return renderer; }
+
 protected:
 	Manager_game();
 	~Manager_game();
@@ -25,6 +26,8 @@ private:
 	void init_assert(bool flag,const char* text);
 
 private:
+	bool is_debug = false;
+
 	int FPS = 60;
 
 	int cur_coin_count = 0;
@@ -38,8 +41,6 @@ private:
 	SDL_Window* window = nullptr;
 
 	SDL_Renderer* renderer = nullptr;
-
-	SDL_Texture* tex_tile_map = nullptr;
 
 	//manager
 };

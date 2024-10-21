@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Atlas.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="main_client.cpp" />
     <ClCompile Include="Manager_game.cpp" />
     <ClCompile Include="pch.cpp">
@@ -151,6 +152,7 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Atlas.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Manager_game.h" />
     <ClInclude Include="pch.h" />

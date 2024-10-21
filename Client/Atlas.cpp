@@ -1,13 +1,19 @@
-#include "Atlas.h"
+#include "pch.h"
 
-void Atlas::load(LPCTSTR path_template, int num) {
+#include "Atlas.h"
+#include <SDL_image.h>
+#include "Manager_game.h"
+
+
+void Atlas::load(std::string path, int num) {
 	img_list.clear();
 	img_list.resize(num);
 
-	TCHAR path_file[256];
-	for (int i = 0; i < num; i++) {
-		_stprintf_s(path_file, _T("%s/%d.png"), path_template, i + 1);
-		loadimage(&img_list[i], path_file);
+	SDL_Renderer* renderer = Manager_game::instance()->get_renderer();
+
+	for (int i = 0; i < num;i++) {
+		std::string  path_pic= path + std::to_string(i + 1);
+		img_list[i]=IMG_LoadTexture(renderer, path_pic.c_str());
 	}
 }
 
@@ -19,11 +25,11 @@ int Atlas::get_size() const {
 	return (int)img_list.size();
 }
 
-IMAGE* Atlas::get_image(int idx) {
+SDL_Texture* Atlas::get_image(int idx) {
 	if (idx < 0 || idx >= img_list.size())return nullptr;
-	return &img_list[idx];
+	return img_list[idx];
 }
 
-void Atlas::add_image(const IMAGE& img) {
+void Atlas::add_image(SDL_Texture* img) {
 	img_list.push_back(img);
 }

@@ -1,6 +1,8 @@
 #pragma once
+#include <SDL.h>
+
 #include <vector>
-#include <graphics.h>
+#include <string>
 
 class Atlas {
 public:
@@ -8,15 +10,15 @@ public:
 	Atlas() = default;
 	~Atlas() = default;
 
-	void load(LPCTSTR path_template,int num);
+	void load(std::string path, int num);
 
 	void clear();
 
 	int get_size()const;
 
-	IMAGE* get_image(int idx);
+	SDL_Texture* get_image(int idx);
 
-	void add_image(const IMAGE& img);
+	void add_image(SDL_Texture* img);
 private:
-	std::vector<IMAGE> img_list;
+	std::vector<SDL_Texture*> img_list;
 };

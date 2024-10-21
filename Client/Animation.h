@@ -31,7 +31,7 @@ public:
 
 	void set_on_finished(std::function<void()> on_finished);
 
-	void add_frame(IMAGE* img, int num_h);
+	void add_frame(SDL_Texture* img, int num_h);
 
 	void add_frame(Atlas* atlas);
 
@@ -41,11 +41,11 @@ public:
 private:
 	struct Frame {//֡
 
-		Rect rect_src;
-		IMAGE* img = nullptr;
+		SDL_Rect rect_src;
+		SDL_Texture* img = nullptr;
 
 		Frame() = default;
-		Frame(IMAGE* img,const Rect& rect_src):img(img),rect_src(rect_src) {};
+		Frame(SDL_Texture* img,const SDL_Rect& rect_src):img(img),rect_src(rect_src) {};
 		~Frame() = default;
 	};
 
