@@ -15,26 +15,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main_client.cpp">
+    <ClCompile Include="Animation.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Atlas.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Manager_game.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Animation.cpp">
-      <Filter>头文件</Filter>
-    </ClCompile>
-    <ClCompile Include="Atlas.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Vector2D.cpp">
-      <Filter>头文件</Filter>
+      <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp" />
     <ClCompile Include="Camera.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main_client.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager_resource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -64,6 +69,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

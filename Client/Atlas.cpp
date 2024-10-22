@@ -12,7 +12,7 @@ void Atlas::load(std::string path, int num) {
 	SDL_Renderer* renderer = Manager_game::instance()->get_renderer();
 
 	for (int i = 0; i < num;i++) {
-		std::string  path_pic= path + std::to_string(i + 1);
+		std::string  path_pic= path + "_"+std::to_string(i + 1)+".png";
 		img_list[i]=IMG_LoadTexture(renderer, path_pic.c_str());
 	}
 }

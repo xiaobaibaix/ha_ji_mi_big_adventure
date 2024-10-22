@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "Manager_game.h"
+#include "Manager_resource.h"
 
 #include <cmath>
 #include <tchar.h>
 
 int Manager_game::run(int argc, char** argv) {
+
+	init();
 
 	Uint64 last_counter = SDL_GetPerformanceCounter();
 	const Uint64 counter_fre = SDL_GetPerformanceFrequency();
@@ -49,9 +52,13 @@ Manager_game::Manager_game()
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
 	init_assert(renderer, u8"´´½¨äÖÈ¾Æ÷Ê§°Ü");
 
+	
+
 }
 
 Manager_game::~Manager_game() {
+
+	delete camera;
 
 	SDL_DestroyRenderer(renderer);
 	SDL_DestroyWindow(window);
@@ -60,11 +67,20 @@ Manager_game::~Manager_game() {
 	Mix_Quit();
 	IMG_Quit();
 	SDL_Quit();
+
+
 }
 
 void Manager_game::init_assert(bool flag, const char* text) {
 	if (flag)return;
 	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, u8"ÓÎÏ·Æô¶¯Ê§°Ü!", text, window);
+}
+
+void Manager_game::init()
+{
+	Manager_resource::instance()->load();
+
+	camera = new Camera({ 50,50 }, { 640,480 });
 }
 
 
@@ -83,12 +99,23 @@ void Manager_game::on_input(const SDL_Event* event) {
 	default:
 		break;
 	}
+	camera->on_input(event);
+
 }
 
 void Manager_game::on_update(double delta_time) {
 
+	camera->on_update(delta_time);
+
 }
 
 void Manager_game::on_draw() {
+
+	static auto* bk = Manager_resource::instance()->find_texture("bk");
+	SDL_Rect src_rect = { camera->get_pos().x,camera->get_pos().y,camera->get_size().x,camera->get_size().y};
+	//SDL_QueryTexture(bk, nullptr, nullptr, &src_rect.w, &src_rect.h);
+
+	SDL_RenderCopy(renderer,bk, &src_rect, &src_rect);
+
 
 }

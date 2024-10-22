@@ -1,5 +1,6 @@
 #pragma once
 #include "Manager.h"
+#include "Camera.h"
 
 #include <SDL.h>
 
@@ -11,6 +12,7 @@ public:
 
 
 	SDL_Renderer* get_renderer()const { return renderer; }
+	SDL_Window* get_window()const { return window; }
 
 protected:
 	Manager_game();
@@ -24,7 +26,7 @@ private:
 	void on_draw();
 
 	void init_assert(bool flag,const char* text);
-
+	void init();
 private:
 	bool is_debug = false;
 
@@ -35,6 +37,8 @@ private:
 
 	bool is_quit = false;
 
+
+	Camera *camera = nullptr;;
 
 	SDL_Event event;
 
