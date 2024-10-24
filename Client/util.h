@@ -1,5 +1,7 @@
 #pragma once
 #include <graphics.h>
+#include "Rect.h"
+
 
 #pragma comment(lib,"WINMM.lib")
 #pragma comment(lib,"MSIMG32.lib")
@@ -11,17 +13,20 @@ inline void  putimage_alpha(int dst_x, int dst_y, IMAGE* img) {
 		GetImageHDC(img), 0, 0, w, h, { AC_SRC_OVER,0,255,AC_SRC_ALPHA });
 }
 
-struct Rect {
-	int x, y;
-	int w, h;
-};
+//inline void  putimage_ex(IMAGE* img,const Rect* rect_dst,const Rect* rect_src=nullptr){
+//
+//	static BLENDFUNCTION blend_func = { AC_SRC_OVER,0,255,AC_SRC_ALPHA };
+//	AlphaBlend(GetImageHDC(GetWorkingImage()), rect_dst->x, rect_dst->y, rect_dst->w, rect_dst->h,
+//		GetImageHDC(img), rect_src?rect_src->x:0, rect_src ? rect_src->y : 0, 
+//		rect_src ? rect_src->w : img->getwidth(), rect_src ? rect_src->h : img->getheight(), blend_func);
+//}
 
 inline void  putimage_ex(IMAGE* img,const Rect* rect_dst,const Rect* rect_src=nullptr){
 
 	static BLENDFUNCTION blend_func = { AC_SRC_OVER,0,255,AC_SRC_ALPHA };
-	AlphaBlend(GetImageHDC(GetWorkingImage()), rect_dst->x, rect_dst->y, rect_dst->w, rect_dst->h,
-		GetImageHDC(img), rect_src?rect_src->x:0, rect_src ? rect_src->y : 0, 
-		rect_src ? rect_src->w : img->getwidth(), rect_src ? rect_src->h : img->getheight(), blend_func);
+	AlphaBlend(GetImageHDC(GetWorkingImage()), (int)rect_dst->get_pos().x, (int)rect_dst->get_pos().y, (int)rect_dst->get_size().x, (int)rect_dst->get_size().y,
+		GetImageHDC(img), rect_src?(int)rect_src->get_pos().x:0, rect_src ? (int)rect_src->get_pos().y : 0, 
+		rect_src ? (int)rect_src->get_size().x : img->getwidth(), rect_src ? (int)rect_src->get_size().y : img->getheight(), blend_func);
 }
 
 inline void load_audio(LPCTSTR id, LPCTSTR path) {

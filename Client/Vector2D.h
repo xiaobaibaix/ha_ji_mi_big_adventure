@@ -25,7 +25,11 @@ public:
 
 	void operator*=(float val);
 
+	friend std::ostream& operator<<(std::ostream& os, const Vector2D& v);
+
 	float length();
 
 	Vector2D normalize();
+	//y/x
+	float get_ratio() { return y / x; }
 };

@@ -47,3 +47,8 @@ Vector2D Vector2D::normalize() {
 	}
 	return Vector2D(x / len, y / len);
 }
+
+std::ostream & operator<<(std::ostream & os, const Vector2D& v) {
+	os << "(" << v.x << "," << v.y << ")";
+	return os;
+}

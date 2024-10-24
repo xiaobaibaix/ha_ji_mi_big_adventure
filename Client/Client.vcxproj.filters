@@ -42,6 +42,9 @@
     <ClCompile Include="Manager_resource.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Rect.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Manager_game.h">
@@ -72,6 +75,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Manager_resource.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Rect.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

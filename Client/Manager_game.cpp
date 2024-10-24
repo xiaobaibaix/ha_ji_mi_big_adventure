@@ -2,9 +2,6 @@
 #include "Manager_game.h"
 #include "Manager_resource.h"
 
-#include <cmath>
-#include <tchar.h>
-
 int Manager_game::run(int argc, char** argv) {
 
 	init();
@@ -80,7 +77,9 @@ void Manager_game::init()
 {
 	Manager_resource::instance()->load();
 
-	camera = new Camera({ 50,50 }, { 640,480 });
+	camera = new Camera({ 0,0 }, { 640,480 });
+	camera->mulX(2);
+	camera->move_dalta({ 50,0 });
 }
 
 
@@ -112,10 +111,9 @@ void Manager_game::on_update(double delta_time) {
 void Manager_game::on_draw() {
 
 	static auto* bk = Manager_resource::instance()->find_texture("bk");
-	SDL_Rect src_rect = { camera->get_pos().x,camera->get_pos().y,camera->get_size().x,camera->get_size().y};
-	//SDL_QueryTexture(bk, nullptr, nullptr, &src_rect.w, &src_rect.h);
+	SDL_Rect src_rect = { (int)camera->get_pos().x,(int)camera->get_pos().y,(int)camera->get_size().x,(int)camera->get_size().y };
+	SDL_Rect dst_rect = {0,0,640,480};
 
-	SDL_RenderCopy(renderer,bk, &src_rect, &src_rect);
-
+	SDL_RenderCopy(renderer,bk, &src_rect, &dst_rect);
 
 }

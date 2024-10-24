@@ -1,7 +1,7 @@
 #pragma once
 #include "Vector2D.h"
 #include "Timer.h"
-
+#include "Rect.h"
 
 
 class Camera
@@ -19,16 +19,12 @@ public:
 	void move_dalta(const Vector2D& delta_distance);
 
 	Vector2D get_pos()const { return pos_offset; }
-	Vector2D get_size()const { return size; };
+	Vector2D get_size()const { return viewport.get_size(); };
 	void set_size(const Vector2D& size);
 
 	float get_mulMag()const { return multiple_mag; }//得到放大比
-	void mul2();//设置两倍放大
-	void mul3();//设置三倍放大
 	void set_mulMag(float num);//设置放大比
-	void mulX(int x);
-	void mulOneThird();
-	void mulHalf();
+	void mulX(float x);//缩放多少倍
 	//抖动
 	void shake(double time, int range);
 
@@ -40,8 +36,18 @@ private:
 
 	float multiple_mag = 1;//放大比
 
-	Vector2D pos;//固定的位置
-	Vector2D pos_offset;//偏移位置，用这个
-	Vector2D size;
+	Rect viewport = { 0,0,640,480 };
+	Vector2D pos_offset = {0,0};//偏移位置
+	
+	Vector2D pos_mouse = {0,0};//鼠标的位置
+	float mouse_move_coefficient = 2;//鼠标拖动灵敏系数
+	
+	bool is_move_up = false;
+	bool is_move_down = false;
+	bool is_move_left = false;
+	bool is_move_right = false;
+	bool is_move_mouse_mid = false;
+
+	Rect sence_area = { 0,0,3840,2160 };
 };
 
