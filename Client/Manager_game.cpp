@@ -78,8 +78,11 @@ void Manager_game::init()
 	Manager_resource::instance()->load();
 
 	camera = new Camera({ 0,0 }, { 640,480 });
-	camera->mulX(2);
+	//camera->mulX(2);
 	camera->move_dalta({ 50,0 });
+
+	manager_player = Manager_player::instance();
+
 }
 
 
@@ -99,13 +102,13 @@ void Manager_game::on_input(const SDL_Event* event) {
 		break;
 	}
 	camera->on_input(event);
-
+	manager_player->on_input(event);
 }
 
 void Manager_game::on_update(double delta_time) {
 
 	camera->on_update(delta_time);
-
+	manager_player->on_update(delta_time);
 }
 
 void Manager_game::on_draw() {
@@ -115,5 +118,6 @@ void Manager_game::on_draw() {
 	SDL_Rect dst_rect = {0,0,640,480};
 
 	SDL_RenderCopy(renderer,bk, &src_rect, &dst_rect);
-
+	
+	manager_player->on_draw();
 }

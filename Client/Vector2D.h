@@ -22,6 +22,7 @@ public:
 	float operator*(const Vector2D& vec)const;
 
 	Vector2D operator*(float val)const;
+	Vector2D operator/(float val)const;
 
 	void operator*=(float val);
 

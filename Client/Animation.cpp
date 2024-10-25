@@ -9,6 +9,7 @@ Animation::Animation() :position(0, 0) {
 	timer.set_one_shot(false);
 	timer.set_on_timeout(
 		[&]() {
+			std::cout << idx_frame << std::endl;
 			idx_frame++;
 			if (idx_frame >= frame_list.size()) {
 				idx_frame = is_loop ? 0 : frame_list.size()-1;
@@ -90,17 +91,17 @@ void Animation::on_update(float delta) {
 	timer.on_update(delta);
 }
 
-void Animation::on_render() {
+void Animation::on_render(const Vector2D& pos_dst) {
 	const Frame& frame = frame_list[idx_frame];
 
-	SDL_Rect rect_dst;
-	rect_dst.x = (int)position.x - frame.rect_src.w / 2;
-	rect_dst.y = (ancher_mode == AncherMode::Centerd) ? (int)position.y - frame.rect_src.h / 2 : (int)position.y- frame.rect_src.h;
-	rect_dst.w = frame.rect_src.w;
-	rect_dst.h = frame.rect_src.h;
+	int w, h;
+	SDL_QueryTexture(frame.img, nullptr, nullptr, &w, &h);
+	float mulmag = Manager_game::instance()->get_camera()->get_mulMag();
+
+	SDL_Rect dst = { pos_dst.x,pos_dst.y,w/ mulmag,h/ mulmag };
 
 	SDL_Renderer* renderer=Manager_game::instance()->get_renderer();
 	
-	SDL_RenderCopy(renderer, frame.img, &frame.rect_src, &rect_dst);
+	SDL_RenderCopy(renderer, frame.img, &frame.rect_src, &dst);
 
 }

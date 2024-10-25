@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="头文件\player">
+      <UniqueIdentifier>{c0e449cd-78f8-43cc-b1fa-6fb5222482cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\status">
+      <UniqueIdentifier>{6e7a02e0-21d9-481f-974e-3b37e3960b6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\manager">
+      <UniqueIdentifier>{b0dbd724-1b1a-4bad-8092-c005931101d9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -45,18 +54,33 @@
     <ClCompile Include="Rect.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="Route.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusMachine.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Status_player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHajimi.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerManbo.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager_player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Manager_game.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Atlas.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="Manager.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
@@ -74,11 +98,38 @@
     <ClInclude Include="Camera.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Manager_resource.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Rect.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Route.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>头文件\player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHajimi.h">
+      <Filter>头文件\player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerManbo.h">
+      <Filter>头文件\player</Filter>
+    </ClInclude>
+    <ClInclude Include="Status_player.h">
+      <Filter>头文件\status</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusMachine.h">
+      <Filter>头文件\status</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_resource.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_game.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_player.h">
+      <Filter>头文件\manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

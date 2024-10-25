@@ -143,11 +143,18 @@
     <ClCompile Include="main_client.cpp" />
     <ClCompile Include="Manager_game.cpp" />
     <ClCompile Include="Manager_resource.cpp" />
+    <ClCompile Include="Manager_player.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerHajimi.cpp" />
+    <ClCompile Include="PlayerManbo.cpp" />
     <ClCompile Include="Rect.cpp" />
+    <ClCompile Include="Route.cpp" />
+    <ClCompile Include="StatusMachine.cpp" />
+    <ClCompile Include="Status_player.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2D.cpp" />
   </ItemGroup>
@@ -158,8 +165,15 @@
     <ClInclude Include="Manager.h" />
     <ClInclude Include="Manager_game.h" />
     <ClInclude Include="Manager_resource.h" />
+    <ClInclude Include="Manager_player.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerHajimi.h" />
+    <ClInclude Include="PlayerManbo.h" />
     <ClInclude Include="Rect.h" />
+    <ClInclude Include="Route.h" />
+    <ClInclude Include="StatusMachine.h" />
+    <ClInclude Include="Status_player.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="util.h" />
     <ClInclude Include="Vector2D.h" />

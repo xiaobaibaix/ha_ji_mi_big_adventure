@@ -19,17 +19,17 @@ void Manager_resource::load()
 		{"hajimi_idle_left",{"res/hajimi_idle_left",4}},
 		{"hajimi_idle_right",{"res/hajimi_idle_right",4}},
 		{"hajimi_run_back",{"res/hajimi_run_back",4}},
-		{"hajimi_idle_front",{"res/hajimi_run_front",4}},
-		{"hajimi_idle_left",{"res/hajimi_run_left",4}},
-		{"hajimi_idle_right",{"res/hajimi_run_right",4}},
+		{"hajimi_run_front",{"res/hajimi_run_front",4}},
+		{"hajimi_run_left",{"res/hajimi_run_left",4}},
+		{"hajimi_run_right",{"res/hajimi_run_right",4}},
 		{"manbo_idle_back",{"res/manbo_idle_back",4}},
 		{"manbo_idle_front",{"res/manbo_idle_front",4}},
 		{"manbo_idle_left",{"res/manbo_idle_left",4}},
 		{"manbo_idle_right",{"res/manbo_idle_right",4}},
 		{"manbo_run_back",{"res/manbo_run_back",4}},
-		{"manbo_idle_front",{"res/manbo_run_front",4}},
-		{"manbo_idle_left",{"res/manbo_run_left",4}},
-		{"manbo_idle_right",{"res/manbo_run_right",4}},
+		{"manbo_run_front",{"res/manbo_run_front",4}},
+		{"manbo_run_left",{"res/manbo_run_left",4}},
+		{"manbo_run_right",{"res/manbo_run_right",4}},
 	};
 
 	auto* renderer=Manager_game::instance()->get_renderer();

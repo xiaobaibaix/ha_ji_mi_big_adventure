@@ -28,7 +28,7 @@ void Timer::resume() {
 
 void Timer::on_update(float deta) {
 	if (paused)return;
-
+	//std::cout << "timer update!" << std::endl;
 	pass_time += deta;
 	if (pass_time >= wait_time) {
 		bool can_shot = (!one_shot || (one_shot && !shotted));

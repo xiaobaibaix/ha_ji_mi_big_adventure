@@ -30,6 +30,11 @@ Vector2D Vector2D::operator*(float val) const {
 	return Vector2D(x * val, y * val);
 }
 
+Vector2D Vector2D::operator/(float val) const
+{
+	return Vector2D(this->x/val,this->y/val);
+}
+
 void Vector2D::operator*=(float val) {
 	x *= val;
 	y *= val;

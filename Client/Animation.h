@@ -3,6 +3,7 @@
 #include "Timer.h"
 #include "Vector2D.h"
 #include "Atlas.h"
+#include "Rect.h"
 
 #include <vector>
 #include <functional>
@@ -37,7 +38,7 @@ public:
 
 	void on_update(float delta);
 
-	void on_render();
+	void on_render(const Vector2D& pos_dst);
 private:
 	struct Frame {//֡
 

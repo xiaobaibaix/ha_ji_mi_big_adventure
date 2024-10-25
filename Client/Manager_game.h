@@ -1,6 +1,7 @@
 #pragma once
 #include "Manager.h"
 #include "Camera.h"
+#include "Manager_player.h"
 
 #include <SDL.h>
 
@@ -13,6 +14,7 @@ public:
 
 	SDL_Renderer* get_renderer()const { return renderer; }
 	SDL_Window* get_window()const { return window; }
+	Camera* get_camera()const { return camera; }
 
 protected:
 	Manager_game();
@@ -47,6 +49,7 @@ private:
 	SDL_Renderer* renderer = nullptr;
 
 	//manager
+	Manager_player* manager_player = nullptr;
 };
 
 

@@ -29,7 +29,7 @@ public:
 	//矩形是否在里面
 	bool in(const Rect& rect);
 
-private:
+public:
 	float x, y;
 	float w, h;
 };

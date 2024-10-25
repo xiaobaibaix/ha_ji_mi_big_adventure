@@ -150,7 +150,7 @@ void Camera::move_to(const Vector2D& pos)
 void Camera::move_dalta(const Vector2D& delta_distance)
 {
 	viewport.move_delta({ delta_distance.x,delta_distance.y });
-
+	
 	if (viewport.get_pos().x < sence_area.get_pos().x)
 		viewport.move_delta({ sence_area.get_pos().x - viewport.get_pos().x,0 });
 	if(viewport.get_pos_rd().x > sence_area.get_pos_rd().x)
