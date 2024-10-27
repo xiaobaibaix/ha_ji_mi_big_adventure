@@ -5,11 +5,14 @@ class Net
 {
 public:
 	Net();
-	~Net();
+	virtual ~Net();
 
+	virtual void setPlayer(const std::string& id) =0;
 
+	httplib::Client* get_client()const { return client; }
 
-private:
+protected:
+	bool is_net_init = false;
 
 	httplib::Client* client = nullptr;
 

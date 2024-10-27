@@ -27,6 +27,15 @@ void Manager_sentence::set_text(const std::string& text)
 
         sentence_pool.push_back(currentSentence);
     }
+
+    for (auto& s : sentence_pool) {
+        std::regex newlines_re("\n+|\r+");
+        s  = std::regex_replace(s, newlines_re, "");
+    }
+
+    //for (auto& s : sentence_pool) {
+    //    std::cout << s << std::endl;
+    //}
 }
 
 std::string* Manager_sentence::get_sentence(int idx)

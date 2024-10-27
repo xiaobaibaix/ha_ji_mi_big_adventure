@@ -50,7 +50,6 @@ private:
 
 	//manager
 	Manager_player* manager_player = nullptr;
-	Sentence* sentence = nullptr;
 };
 
 

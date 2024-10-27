@@ -11,6 +11,9 @@ Player::Player(Player::PlayerId id):id(id)
             is_can_move = false;
         }
     );
+
+    setPos(route.get_cur());
+    size = { 96,96 };
 }
 
 Player::~Player()
@@ -19,6 +22,7 @@ Player::~Player()
 
 void Player::on_input(const SDL_Event* event)
 {
+    if (id == PlayerId::Other)return;
     switch (event->type) {
     case SDL_KEYDOWN:
         if (event->key.keysym.scancode == SDL_SCANCODE_LSHIFT || event->key.keysym.scancode==SDL_SCANCODE_RSHIFT)
@@ -39,7 +43,6 @@ void Player::on_input(const SDL_Event* event)
         key_code = -1;
     }
     //std::cout << key_code << std::endl;
-
 }
 
 void Player::on_update(double delta_time)
@@ -66,8 +69,8 @@ void Player::on_draw()
 {
     Vector2D camera_ps=Manager_game::instance()->get_camera()->get_pos();
     float mulmag = Manager_game::instance()->get_camera()->get_mulMag();
-
-    if (animation_cur)animation_cur->on_render(Vector2D(pos- camera_ps)/ mulmag);
+    Vector2D delta = {size.x/2,size.y/2};
+    if (animation_cur)animation_cur->on_render(Vector2D(pos- delta - camera_ps)/ mulmag);
 }
 
 Player::PlayerId Player::getId()
@@ -116,6 +119,11 @@ StatusMachine* Player::get_statusMachine()
     return &status_machine;
 }
 
+const Vector2D& Player::get_size() const
+{
+    return size;
+}
+
 void Player::setMoveTime(float time)
 {
     timer.set_wait_time(time);
@@ -127,4 +135,9 @@ void Player::set_animation(std::string id)
 {
     animation_cur= animation_pool.find(id)->second;
     animation_cur->reset();
+}
+
+void Player::set_size(const Vector2D& size)
+{
+
 }

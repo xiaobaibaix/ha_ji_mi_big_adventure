@@ -21,7 +21,6 @@ public:
 	Vector2D get_pos()const { return pos_offset; }
 	Vector2D get_size()const { return viewport.get_size(); };
 	void set_size(const Vector2D& size);
-
 	float get_mulMag()const { return multiple_mag; }//得到放大比
 	void set_mulMag(float num);//设置放大比
 	void mulX(float x);//缩放多少倍

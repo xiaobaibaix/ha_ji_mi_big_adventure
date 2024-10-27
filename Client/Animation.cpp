@@ -98,7 +98,7 @@ void Animation::on_render(const Vector2D& pos_dst) {
 	SDL_QueryTexture(frame.img, nullptr, nullptr, &w, &h);
 	float mulmag = Manager_game::instance()->get_camera()->get_mulMag();
 
-	SDL_Rect dst = { pos_dst.x,pos_dst.y,w/ mulmag,h/ mulmag };
+	SDL_Rect dst = { (int)pos_dst.x,(int)pos_dst.y,(int)(w*2/ mulmag),(int)(h*2/ mulmag) };
 
 	SDL_Renderer* renderer=Manager_game::instance()->get_renderer();
 	

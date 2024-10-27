@@ -12,8 +12,8 @@ class Player
 public:
 	enum class PlayerId {
 		None,
-		Manbo,
-		Hajimi
+		Self,
+		Other
 	};
 public:
 	Player(Player::PlayerId id);
@@ -32,11 +32,13 @@ public:
 	bool can_move();
 	Vector2D get_move_dir();
 	StatusMachine* get_statusMachine();
+	const Vector2D& get_size()const;
 
 	void setSpeed(const Vector2D& speed);
 	void setPos(const Vector2D& pos);
 	void setMoveTime(float time);
 	void set_animation(std::string id);
+	void set_size(const Vector2D& size);
 
 
 protected:
@@ -48,6 +50,7 @@ protected:
 
 	Vector2D pos;
 	Vector2D speed;
+	Vector2D size;
 	bool is_can_move = false;
 
 	bool is_keydown = false;
@@ -58,6 +61,7 @@ protected:
 	Animation *animation_cur = nullptr;
 
 	Route route;
+
 	StatusMachine status_machine;
 
 	bool is_down_capslock = false;

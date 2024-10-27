@@ -4,7 +4,7 @@ class PlayerManbo :
     public Player
 {
 public:
-    PlayerManbo();
+    PlayerManbo(PlayerId id);
     ~PlayerManbo();
 
     void on_input(const SDL_Event* event)override;

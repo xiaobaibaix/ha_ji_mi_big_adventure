@@ -33,6 +33,5 @@ private:
 	int cur_idex = 0;
 
 	std::vector<Vector2D> point_pool;
-
 };
 

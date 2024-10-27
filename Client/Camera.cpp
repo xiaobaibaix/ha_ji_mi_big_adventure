@@ -143,8 +143,7 @@ void Camera::on_update(double delta_time)
 
 void Camera::move_to(const Vector2D& pos)
 {
-	viewport.move_to(pos);
-	this->pos_offset = pos;
+	move_dalta(pos-this->get_pos());
 }
 
 void Camera::move_dalta(const Vector2D& delta_distance)

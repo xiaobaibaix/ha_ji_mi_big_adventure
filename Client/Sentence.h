@@ -23,6 +23,8 @@ public:
 	void add_idx();
 	void set_sentence(std::string* str);
 	void set_pos(const Vector2D& pos);
+
+	const char& get_char()const;
 private:
 	void generate_face();//生成纹理
 	void cover_tex();//覆盖纹理

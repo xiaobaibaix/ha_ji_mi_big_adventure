@@ -3,7 +3,7 @@
 #include "Manager_resource.h"
 
 
-PlayerHajimi::PlayerHajimi() :Player(Player::PlayerId::Hajimi)
+PlayerHajimi::PlayerHajimi(PlayerId id) :Player(id)
 {
 	auto* res = Manager_resource::instance();
 
@@ -38,6 +38,7 @@ PlayerHajimi::PlayerHajimi() :Player(Player::PlayerId::Hajimi)
 	status_machine.register_status(ids[6], new RunLeft(this));
 	status_machine.register_status(ids[7], new RunRight(this));
 	status_machine.entry("idle_right");
+
 }
 
 PlayerHajimi::~PlayerHajimi()
