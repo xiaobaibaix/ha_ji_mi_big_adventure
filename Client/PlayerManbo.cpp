@@ -21,7 +21,7 @@ PlayerManbo::PlayerManbo(PlayerId id):Player(id)
 	for (int i = 0; i < ids->size()-1; i++) {
 		Animation* animation = new Animation();
 		animation->set_ancher_mode(Animation::AncherMode::Centerd);
-		animation->set_interval(0.1);
+		animation->set_interval(0.2);
 		animation->set_loop(true);
 		animation->add_frame(res->find_atlas("manbo_"+ids[i]));
 		animation_pool[ids[i]] = animation;

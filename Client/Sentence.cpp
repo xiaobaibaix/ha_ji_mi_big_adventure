@@ -116,5 +116,5 @@ void Sentence::set_pos(const Vector2D& pos)
 
 const char& Sentence::get_char() const
 {
-    return *str[idx_cur].c_str();
+    return str->c_str()[idx_cur];
 }

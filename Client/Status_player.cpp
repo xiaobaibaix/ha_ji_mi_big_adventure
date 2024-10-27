@@ -17,6 +17,7 @@ IdleLeft::IdleLeft(Player* player):Status(player)
 void IdleLeft::on_enter()
 {
 	player->set_animation("idle_left");
+	std::cout << "enter the idle left!" << std::endl;
 }
 
 void IdleLeft::on_exit()
@@ -42,6 +43,8 @@ IdleRight::IdleRight(Player* player):Status(player)
 void IdleRight::on_enter()
 {
 	player->set_animation("idle_right");
+	std::cout << "enter the idle right!" << std::endl;
+
 }
 
 void IdleRight::on_exit()
@@ -67,6 +70,8 @@ IdleUp::IdleUp(Player* player) :Status(player)
 void IdleUp::on_enter()
 {
 	player->set_animation("idle_back");
+	std::cout << "enter the idle back!" << std::endl;
+
 
 }
 
@@ -93,6 +98,8 @@ IdleDown::IdleDown(Player* player):Status(player)
 void IdleDown::on_enter()
 {
 	player->set_animation("idle_front");
+	std::cout << "enter the idle front!" << std::endl;
+
 }
 
 void IdleDown::on_exit()
@@ -119,6 +126,8 @@ RunLeft::RunLeft(Player* player):Status(player)
 void RunLeft::on_enter()
 {
 	player->set_animation("run_left");
+	std::cout << "enter the run left!" << std::endl;
+
 }
 
 void RunLeft::on_exit()
@@ -144,6 +153,8 @@ RunRight::RunRight(Player* player) :Status(player)
 void RunRight::on_enter()
 {
 	player->set_animation("run_right");
+	std::cout << "enter the run right!" << std::endl;
+
 }
 
 void RunRight::on_exit()
@@ -169,6 +180,8 @@ RunUp::RunUp(Player* player) :Status(player)
 void RunUp::on_enter()
 {
 	player->set_animation("run_back");
+	std::cout << "enter the run back!" << std::endl;
+
 
 }
 
@@ -195,6 +208,8 @@ RunDown::RunDown(Player* player) :Status(player)
 void RunDown::on_enter()
 {
 	player->set_animation("run_front");
+	std::cout << "enter the run front!" << std::endl;
+
 
 }
 

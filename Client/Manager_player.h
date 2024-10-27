@@ -32,6 +32,9 @@ private:
 	int progress_1 = -1;
 	int progress_2 = -1;
 
+		
+	bool can_game = false;
+
 	Manager_sentence *manager_sentence = nullptr;
 	Sentence* cur_sentence = nullptr;
 

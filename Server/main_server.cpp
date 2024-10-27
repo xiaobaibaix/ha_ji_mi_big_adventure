@@ -42,6 +42,18 @@ int main(int argc,char**argv) {
 		}
 	);
 
+	server.Post("/can_game", [&](const httplib::Request& req, httplib::Response& res) {
+		std::lock_guard<std::mutex> lock(g_mutex);
+		if (progress_1 >= 0 && progress_2 >= 0) {
+			res.set_content("1", "text/plain");
+		}
+		else {
+			res.set_content("0", "text/plain");
+		}
+
+		}
+	);
+
 	server.Post("/query_text", [&](const httplib::Request& req, httplib::Response& res) {
 		res.set_content(str_text, "text/plain");
 		}

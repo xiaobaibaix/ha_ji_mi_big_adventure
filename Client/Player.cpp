@@ -9,6 +9,7 @@ Player::Player(Player::PlayerId id):id(id)
     timer.set_on_timeout(
         [&]() {
             is_can_move = false;
+            std::cout << "结束行走！" << std::endl;
         }
     );
 
@@ -25,10 +26,38 @@ void Player::on_input(const SDL_Event* event)
     if (id == PlayerId::Other)return;
     switch (event->type) {
     case SDL_KEYDOWN:
+        switch (event->key.keysym.sym) {
+        case SDLK_UP:
+            //is_move_up = false;
+            break;
+        case SDLK_DOWN:
+            //is_move_down = false;
+            break;
+        case SDLK_LEFT:
+            //is_move_left = false;
+            break;
+        case SDLK_RIGHT:
+            //is_move_right = false;
+            break;
+        }
         if (event->key.keysym.scancode == SDL_SCANCODE_LSHIFT || event->key.keysym.scancode==SDL_SCANCODE_RSHIFT)
             is_down_shift = true;
         break;
     case SDL_KEYUP:
+        switch (event->key.keysym.sym) {
+        case SDLK_UP:
+            is_move_up = true;
+            break;
+        case SDLK_DOWN:
+            is_move_down = true;
+            break;
+        case SDLK_LEFT:
+            is_move_left = true;
+            break;
+        case SDLK_RIGHT:
+            is_move_right = true;
+            break;
+        }
         if (event->key.keysym.scancode == SDL_SCANCODE_LSHIFT || event->key.keysym.scancode == SDL_SCANCODE_RSHIFT)
             is_down_shift = false;
         if (event->key.keysym.scancode >= 4 && event->key.keysym.scancode <= 57) {
@@ -36,7 +65,12 @@ void Player::on_input(const SDL_Event* event)
                 is_down_capslock = !is_down_capslock;
             key_code = event->key.keysym.scancode;
             if (is_down_shift || is_down_capslock)key_code += 56;
-            //std::cout << "输入:" << "( " << get_press_key_code() << " )"<< std::endl;
+            std::cout <<"press:" << "(" << get_press_key_code() << ")" << std::endl;
+            key_code_pool.push(get_press_key_code());
+            key_code = -1;
+        }
+        else {
+            key_code = -1;
         }
         break;
     default:
@@ -47,9 +81,9 @@ void Player::on_input(const SDL_Event* event)
 
 void Player::on_update(double delta_time)
 {
-
+    timer.on_update(delta_time);
     if (is_can_move) {
-        auto dir = route.get_move_dir(pos);
+        dir = route.get_move_dir(pos);
         if (dir.x == 0 && dir.y == 0) {
             route.add_idex();
             dir = route.get_move_dir(pos);
@@ -57,6 +91,28 @@ void Player::on_update(double delta_time)
         speed = dir * SPEED;
         pos += speed * delta_time;
     }
+    //std::cout << "player:" << get_press_key_code() << std::endl;
+    //if (is_move_up) {
+    //    setMoveTime(0.8);
+    //    dir = { 0,-1 };
+    //    is_move_up = false;
+    //}
+    //if (is_move_down) {
+    //    setMoveTime(0.8);
+    //    dir = { 0,1 };
+    //    is_move_down = false;
+    //}
+    //if (is_move_left) {
+    //    setMoveTime(0.8);
+    //    dir = { -1,0 };
+    //    is_move_left = false;
+    //}
+    //if (is_move_right) {
+    //    setMoveTime(0.8); 
+    //    dir = { 1,0 };
+    //    is_move_right = false;
+    //}
+
     status_machine.on_update(delta_time);
 
     if (animation_cur) {
@@ -98,6 +154,16 @@ Vector2D Player::getPosition()
     return pos;
 }
 
+char Player::pressed_key_code()
+{
+    if (!key_code_pool.empty()) {
+        char c = key_code_pool.front();
+        key_code_pool.pop();
+        return c;
+    }
+    else return '\0';
+}
+
 char Player::get_press_key_code()
 {
     if (key_code == -1)return '\0';
@@ -111,7 +177,8 @@ bool Player::can_move()
 
 Vector2D Player::get_move_dir()
 {
-    return Vector2D();
+    return dir;
+   // return Vector2D(route.get_cur()-pos);
 }
 
 StatusMachine* Player::get_statusMachine()
@@ -139,5 +206,5 @@ void Player::set_animation(std::string id)
 
 void Player::set_size(const Vector2D& size)
 {
-
+    this->size = size;
 }

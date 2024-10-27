@@ -5,7 +5,7 @@
 #include "StatusMachine.h"
 
 #include <unordered_map>
-
+#include <Queue>
 
 class Player
 {
@@ -28,7 +28,7 @@ public:
 	Player::PlayerId getId();
 	Vector2D getSpeed();
 	Vector2D getPosition();
-	char get_press_key_code();
+	char pressed_key_code();
 	bool can_move();
 	Vector2D get_move_dir();
 	StatusMachine* get_statusMachine();
@@ -42,27 +42,39 @@ public:
 
 
 protected:
-	const float SPEED = 5;
+	char get_press_key_code();
+
+	const float SPEED = 50;
 protected:
 	Timer timer;//单词敲击完以后给予的移动时间
+	Timer timer_move;
 
 	PlayerId id = PlayerId::None;
 
 	Vector2D pos;
 	Vector2D speed;
 	Vector2D size;
+	Vector2D dir;
+
 	bool is_can_move = false;
+
 
 	bool is_keydown = false;
 	int key_code = -1;
 
 	std::unordered_map<std::string, Animation*> animation_pool;
-	
+	std::queue<char> key_code_pool;
+
 	Animation *animation_cur = nullptr;
 
 	Route route;
 
 	StatusMachine status_machine;
+
+	bool is_move_up = false;
+	bool is_move_down = false;
+	bool is_move_left = false;
+	bool is_move_right = false;
 
 	bool is_down_capslock = false;
 	bool is_down_shift = false;
