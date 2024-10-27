@@ -2,7 +2,7 @@
 #include "Player.h"
 #include "Manager_game.h"
 #include "Manager_resource.h"
-
+#include "Keys.h"
 Player::Player(Player::PlayerId id):id(id)
 {
     timer.set_one_shot(true);
@@ -21,14 +21,25 @@ void Player::on_input(const SDL_Event* event)
 {
     switch (event->type) {
     case SDL_KEYDOWN:
-        if (event->key.keysym.sym>=5&& event->key.keysym.sym<=59) {
-            key_code = event->key.keysym.sym;
-        }
-        else {
-
+        if (event->key.keysym.scancode == SDL_SCANCODE_LSHIFT || event->key.keysym.scancode==SDL_SCANCODE_RSHIFT)
+            is_down_shift = true;
+        break;
+    case SDL_KEYUP:
+        if (event->key.keysym.scancode == SDL_SCANCODE_LSHIFT || event->key.keysym.scancode == SDL_SCANCODE_RSHIFT)
+            is_down_shift = false;
+        if (event->key.keysym.scancode >= 4 && event->key.keysym.scancode <= 57) {
+            if (event->key.keysym.scancode == SDL_SCANCODE_CAPSLOCK)//锁定大小
+                is_down_capslock = !is_down_capslock;
+            key_code = event->key.keysym.scancode;
+            if (is_down_shift || is_down_capslock)key_code += 56;
+            //std::cout << "输入:" << "( " << get_press_key_code() << " )"<< std::endl;
         }
         break;
+    default:
+        key_code = -1;
     }
+    //std::cout << key_code << std::endl;
+
 }
 
 void Player::on_update(double delta_time)
@@ -49,8 +60,6 @@ void Player::on_update(double delta_time)
         animation_cur->on_update(delta_time);
         animation_cur->set_position(pos);
     }
-
-
 }
 
 void Player::on_draw()
@@ -86,9 +95,10 @@ Vector2D Player::getPosition()
     return pos;
 }
 
-int Player::get_press_key_code()
+char Player::get_press_key_code()
 {
-    return key_code;
+    if (key_code == -1)return '\0';
+    return key_value[key_code];
 }
 
 bool Player::can_move()

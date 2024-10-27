@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Manager_game.h"
 #include "Manager_resource.h"
+#include "Manager_sentence.h"
+#include "Sentence.h"
 
 int Manager_game::run(int argc, char** argv) {
 
@@ -76,13 +78,20 @@ void Manager_game::init_assert(bool flag, const char* text) {
 void Manager_game::init()
 {
 	Manager_resource::instance()->load();
-
+	Manager_sentence::instance();
 	camera = new Camera({ 0,0 }, { 640,480 });
-	//camera->mulX(2);
-	camera->move_dalta({ 50,0 });
+	camera->mulX(2);
+	camera->move_dalta({ 0,0 });
 
 	manager_player = Manager_player::instance();
 
+	sentence = new Sentence();
+	sentence->set_pos({ 20,400 });
+	sentence->set_sentence(new std::string("The. twelve? huntsmen! always followed the king to the chase."));
+
+	for (int i = 0; i < 30;i++) {
+		sentence->add_idx();
+	}
 }
 
 
@@ -120,4 +129,8 @@ void Manager_game::on_draw() {
 	SDL_RenderCopy(renderer,bk, &src_rect, &dst_rect);
 	
 	manager_player->on_draw();
+
+	sentence->render_str_tex();
+
+
 }

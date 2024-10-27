@@ -13,6 +13,10 @@ void Manager_resource::load()
 		{"ui_fight","res/ui_fight.png"}
 	};
 
+	std::unordered_map<std::string, std::string> id_font_path = {
+	{"font","res/IPix.ttf"}
+	};
+
 	std::unordered_map<std::string,struct AtalsPath> id_atlas_path{
 		{"hajimi_idle_back",{"res/hajimi_idle_back",4}},
 		{"hajimi_idle_front",{"res/hajimi_idle_front",4}},
@@ -37,6 +41,14 @@ void Manager_resource::load()
 	//Í¼Æ¬µÄ¼ÓÔØ
 	for (auto& path:id_img_path) {
 		img_pool[path.first]=IMG_LoadTexture(renderer, path.second.c_str());
+		if (!assert_load(img_pool[path.first], path.second, "res load fail!£¡")) {
+			exit(-1);
+			return;
+		}
+	}
+
+	for (auto& path : id_img_path) {
+		img_pool[path.first] = IMG_LoadTexture(renderer, path.second.c_str());
 		if (!assert_load(img_pool[path.first], path.second, "res load fail!£¡")) {
 			exit(-1);
 			return;
@@ -69,6 +81,13 @@ Atlas* Manager_resource::find_atlas(std::string id)
 {
 	const auto& itor = atlas_pool.find(id);
 	if (itor == atlas_pool.end())return nullptr;
+	return itor->second;
+}
+
+std::string Manager_resource::find_font_path(std::string id)
+{
+	const auto& itor = id_font_path.find(id);
+	if (itor == id_font_path.end())return nullptr;
 	return itor->second;
 }
 

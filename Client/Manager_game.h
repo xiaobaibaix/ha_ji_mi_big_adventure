@@ -5,12 +5,12 @@
 
 #include <SDL.h>
 
+class Sentence;
 class Manager_game :public Manager<Manager_game>
 {
 	friend class Manager<Manager_game>;
 public:
 	int run(int argc, char** argv);
-
 
 	SDL_Renderer* get_renderer()const { return renderer; }
 	SDL_Window* get_window()const { return window; }
@@ -50,6 +50,7 @@ private:
 
 	//manager
 	Manager_player* manager_player = nullptr;
+	Sentence* sentence = nullptr;
 };
 
 

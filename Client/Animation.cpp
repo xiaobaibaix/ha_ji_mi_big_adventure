@@ -9,7 +9,7 @@ Animation::Animation() :position(0, 0) {
 	timer.set_one_shot(false);
 	timer.set_on_timeout(
 		[&]() {
-			std::cout << idx_frame << std::endl;
+			//std::cout << idx_frame << std::endl;
 			idx_frame++;
 			if (idx_frame >= frame_list.size()) {
 				idx_frame = is_loop ? 0 : frame_list.size()-1;

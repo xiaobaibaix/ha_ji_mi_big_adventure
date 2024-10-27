@@ -28,7 +28,7 @@ public:
 	Player::PlayerId getId();
 	Vector2D getSpeed();
 	Vector2D getPosition();
-	int get_press_key_code();
+	char get_press_key_code();
 	bool can_move();
 	Vector2D get_move_dir();
 	StatusMachine* get_statusMachine();
@@ -59,5 +59,8 @@ protected:
 
 	Route route;
 	StatusMachine status_machine;
+
+	bool is_down_capslock = false;
+	bool is_down_shift = false;
 };
 

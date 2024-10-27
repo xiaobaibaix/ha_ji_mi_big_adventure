@@ -92,12 +92,12 @@ void Camera::on_input(const SDL_Event* event)
 		if (direction == SDL_MOUSEWHEEL_NORMAL) {
 			if (y > 0) {
 				// 向上滚动
-				std::cout << "mouse whell up!" << std::endl;
+				//std::cout << "mouse whell up!" << std::endl;
 				set_mulMag(get_mulMag() - 0.1f);
 			}
 			else {
 				// 向下滚动
-				std::cout << "mouse whell down!" << std::endl;
+				//std::cout << "mouse whell down!" << std::endl;
 				set_mulMag(get_mulMag() + 0.1f);
 			}
 		}

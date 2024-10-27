@@ -22,6 +22,9 @@
     <Filter Include="头文件\manager">
       <UniqueIdentifier>{b0dbd724-1b1a-4bad-8092-c005931101d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="头文件\ui">
+      <UniqueIdentifier>{375856e0-773c-4bf8-ad27-388605496cd8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp">
@@ -73,6 +76,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Manager_player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Manager_sentence.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Sentence.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -130,6 +139,15 @@
     </ClInclude>
     <ClInclude Include="Manager_player.h">
       <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Keys.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Manager_sentence.h">
+      <Filter>头文件\manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Sentence.h">
+      <Filter>头文件\ui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
