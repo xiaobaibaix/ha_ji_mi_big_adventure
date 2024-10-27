@@ -22,9 +22,6 @@ Manager_player::Manager_player()
 
     cur_sentence->set_sentence(manager_sentence->get_sentence(0));
     cur_sentence->set_pos({ 0,380 });
-
-
-
 }
 
 Manager_player::~Manager_player()
@@ -105,13 +102,18 @@ void Manager_player::on_update(double delta_time)
     }
     for (auto& player : player_pool) {
         player.second->on_update(delta_time);
-        if (!can_game)break;
         if (player.second->getId() == Player::PlayerId::Self) {
             char c = player.second->pressed_key_code();
             std::cout <<"sentence next char: " << cur_sentence->get_char() << std::endl;
             if (c != '\0'&&cur_sentence->get_char()==c) {
-                player.second->setMoveTime(0.8);
+                player.second->addMoveTime(0.8);
                 cur_sentence->add_idx();
+                if (client_id[0] == '1') {
+                    progress_1++;
+                }
+                else if(client_id[0]=='2') {
+                    progress_2++;
+                }
                 std::cout << "输入成功！:" <<c<< std::endl;
             }
         }
@@ -124,15 +126,13 @@ void Manager_player::on_update(double delta_time)
                 if (res_update_1 && res_update_1->status == 200) {
                     //std::cout << "Update 1 Response: " << res_update_1->body << std::endl;
                     if (std::stoi(res_update_1->body)-progress_2>0) {
-                        player.second->setMoveTime(0.8);
+                        player.second->addMoveTime(0.8);
                         progress_2 = std::stoi(res_update_1->body);
                     }
                 }
                 else {
                     std::cerr << "Update 1 Failed" << std::endl;
                 }
-
-
             }
             else {
                 // 发送POST请求到/update_2路由
@@ -141,7 +141,7 @@ void Manager_player::on_update(double delta_time)
                 if (res_update_2 && res_update_2->status == 200) {
                     //std::cout << "Update 2 Response: " << res_update_2->body << std::endl;
                     if (std::stoi(res_update_2->body) - progress_1 > 0) {
-                        player.second->setMoveTime(0.8);
+                        player.second->addMoveTime(0.8);
                         progress_1 = std::stoi(res_update_2->body);
                     }
                 }
@@ -150,10 +150,7 @@ void Manager_player::on_update(double delta_time)
                 }
             }
         }
-
     }
-
-    
 }
 
 void Manager_player::on_draw()

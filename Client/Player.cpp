@@ -10,6 +10,10 @@ Player::Player(Player::PlayerId id):id(id)
         [&]() {
             is_can_move = false;
             std::cout << "½áÊøÐÐ×ß£¡" << std::endl;
+            t -= 0.8;
+            if (t > 0) {
+                setMoveTime(0.8);
+            }
         }
     );
 
@@ -196,6 +200,12 @@ void Player::setMoveTime(float time)
     timer.set_wait_time(time);
     timer.restart();
     is_can_move = true;
+}
+
+void Player::addMoveTime(float time)
+{
+    if(t==0)setMoveTime(time);
+    t += time;
 }
 
 void Player::set_animation(std::string id)

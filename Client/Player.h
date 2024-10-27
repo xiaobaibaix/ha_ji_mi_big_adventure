@@ -37,6 +37,7 @@ public:
 	void setSpeed(const Vector2D& speed);
 	void setPos(const Vector2D& pos);
 	void setMoveTime(float time);
+	void addMoveTime(float time);
 	void set_animation(std::string id);
 	void set_size(const Vector2D& size);
 
@@ -47,7 +48,8 @@ protected:
 	const float SPEED = 50;
 protected:
 	Timer timer;//单词敲击完以后给予的移动时间
-	Timer timer_move;
+
+	float t = 0;//添加的时间
 
 	PlayerId id = PlayerId::None;
 
