@@ -27,16 +27,18 @@ private:
 	void generate_face();//生成纹理
 	void cover_tex();//覆盖纹理
 private:
-	const int FONT_SIZE = 24;
+	const int FONT_SIZE = 16;
 private:
-	SDL_Color b_color = {10,10,10};//前
-	SDL_Color e_color = {255,0,0};//后
+	SDL_Color b_color = {50,50,50};//前
+	SDL_Color e_color = {50,50,225};//后
 
 	Vector2D pos;
 
-	std::unordered_map<int, TexRect> tex_pool;//句子所占的纹理图片
+	SDL_Rect rect_border;
+	SDL_Rect rect_content;
 
-	int w, h;
+	std::unordered_map<int, TexRect> tex_pool;//句子所占的纹理图片
+	SDL_Texture* box = nullptr;
 
 	TTF_Font* font = nullptr;
 	

@@ -10,7 +10,8 @@ void Manager_resource::load()
 		{"ui_1","res/ui_1.png"},
 		{"ui_2","res/ui_2.png"},
 		{"ui_3","res/ui_3.png"},
-		{"ui_fight","res/ui_fight.png"}
+		{"ui_fight","res/ui_fight.png"},
+		{"ui_textbox","res/ui_textbox.png"}
 	};
 
 	std::unordered_map<std::string, std::string> id_font_path = {

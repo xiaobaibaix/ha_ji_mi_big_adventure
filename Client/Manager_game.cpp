@@ -86,12 +86,9 @@ void Manager_game::init()
 	manager_player = Manager_player::instance();
 
 	sentence = new Sentence();
-	sentence->set_pos({ 20,400 });
-	sentence->set_sentence(new std::string("The. twelve? huntsmen! always followed the king to the chase."));
-
-	for (int i = 0; i < 30;i++) {
-		sentence->add_idx();
-	}
+	sentence->set_pos({ 0,380 });
+	std::string *str = new std::string("The. twelve? huntsmen! always followed the king to the chase.");
+	sentence->set_sentence(str);
 }
 
 
@@ -118,6 +115,16 @@ void Manager_game::on_update(double delta_time) {
 
 	camera->on_update(delta_time);
 	manager_player->on_update(delta_time);
+
+	static Timer timer;
+	timer.set_one_shot(false);
+	timer.set_wait_time(0.2);
+	timer.set_on_timeout(
+		[&]() {
+			sentence->add_idx();
+		}
+	);
+	timer.on_update(delta_time);
 }
 
 void Manager_game::on_draw() {
@@ -131,6 +138,5 @@ void Manager_game::on_draw() {
 	manager_player->on_draw();
 
 	sentence->render_str_tex();
-
 
 }
