@@ -63,7 +63,6 @@ void Manager_player::setPlayer(const std::string& id)
         player_pool["manbo"] = other=new PlayerManbo(Player::PlayerId::Other);
         client_id = '1';
         progress_1 = 0;
-        progress_2 = 0;
         Camera* camera = Manager_game::instance()->get_camera();
         camera->move_to({ player_pool["hajimi"]->getPosition().x - camera->get_size().x / 2+ player_pool["hajimi"]->get_size().x/2,
             player_pool["hajimi"]->getPosition().y - camera->get_size().y / 2 + player_pool["hajimi"]->get_size().y / 2 });
@@ -73,7 +72,6 @@ void Manager_player::setPlayer(const std::string& id)
         player_pool["hajimi"] =other= new PlayerHajimi(Player::PlayerId::Other);
         player_pool["manbo"] = self=new PlayerManbo(Player::PlayerId::Self);
         client_id = '2';
-        progress_1 = 0;
         progress_2 = 0;
         Camera* camera = Manager_game::instance()->get_camera();
         camera->move_to({ player_pool["manbo"]->getPosition().x - camera->get_size().x / 2 + player_pool["manbo"]->get_size().x / 2,
@@ -100,7 +98,7 @@ void Manager_player::on_input(const SDL_Event* event)
 
 void Manager_player::on_update(double delta_time)
 {
-    timer_input.on_update(delta_time);
+    //timer_input.on_update(delta_time);
     if (!is_net_init) {
         auto res_login = client->Post("/login");
         if (res_login && res_login->status == 200) {
@@ -113,8 +111,33 @@ void Manager_player::on_update(double delta_time)
         is_net_init = true;
     }
 
+    if (!(progress_1 >= 0 && progress_2 >= 0)) {
+        auto res_login = client->Post("/can_game");
+        if (res_login && res_login->status == 200) {
+            if (res_login->body.c_str()[0] == '1') {
+                std::cerr << "game start!" << std::endl;
+
+                if (client_id[0] == '1') {
+                    progress_1 = 0;
+                    progress_2 = 0;
+                }
+                else {
+                    progress_1 = 0;
+                    progress_2 = 0;
+                }
+            }
+            else {
+                std::cerr << "can not game!" << std::endl;
+            }
+        }
+        else {
+            std::cerr << "can_game Failed" << std::endl;
+        }
+    }
+
     for (auto& player : player_pool) {
         player.second->on_update(delta_time);
+        if (!(progress_1 >= 0 && progress_2 >= 0))continue;
         if (player.second->getId() == Player::PlayerId::Self) {//±¾»ú
             char c = player.second->pressed_key_code();
             if (c != '\0'&&cur_sentence->get_char()==c) {

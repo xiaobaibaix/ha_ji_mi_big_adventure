@@ -45,8 +45,15 @@ int main(int argc,char**argv) {
 	);
 
 	server.Post("/query_text", [&](const httplib::Request& req, httplib::Response& res) {
-		std::lock_guard<std::mutex> lock(g_mutex);
 		res.set_content(str_text, "text/plain");
+		}
+	);
+
+
+	server.Post("/can_game", [&](const httplib::Request& req, httplib::Response& res) {
+		std::lock_guard<std::mutex> lock(g_mutex);
+		std::string str = (progress_1 >= 0 && progress_2 >= 0) ? "1" : "0";
+		res.set_content(str, "text/plain");
 		}
 	);
 
@@ -54,7 +61,7 @@ int main(int argc,char**argv) {
 		std::lock_guard<std::mutex> lock(g_mutex);
 
 		progress_1 = std::stoi(req.body);
-		std::cout << "profress_1:" << progress_1 << std::endl;
+		//std::cout << "profress_1:" << progress_1 << std::endl;
 		res.set_content(std::to_string(progress_2), "text/plain");
 		}
 	);
@@ -68,6 +75,7 @@ int main(int argc,char**argv) {
 		}
 	);
 
-	server.listen("localhost", 25565);
+	//server.listen("localhost", 25565);
+	server.listen("0.0.0.0", 25565);
 	return 0;
 }

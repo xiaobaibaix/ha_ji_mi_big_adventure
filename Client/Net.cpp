@@ -3,7 +3,7 @@
 
 Net::Net()
 {
-	client = new httplib::Client("localhost:25565");
+	client = new httplib::Client("100.66.45.102:25565");
 
 
 

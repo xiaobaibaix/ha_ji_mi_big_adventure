@@ -83,7 +83,7 @@ void Player::on_update(double delta_time)
 {
     timer.on_update(delta_time);
     if (is_can_move) {
-        if ((route.get_cur_pos() - pos).length() <= 0.05) {
+        if ((route.get_cur_pos() - pos).length() <= 0.01) {
             pos = route.get_cur_pos();
             route.add_idex();
         }
