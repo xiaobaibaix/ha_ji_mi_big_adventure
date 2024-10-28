@@ -10,7 +10,8 @@ public:
 
 	void set_text(const std::string& text);
 
-	std::string* get_sentence(int idx);
+	std::string* get_sentence();
+	void add_idx();
 
 	int get_w_sentence(int idex);
 private:
@@ -19,5 +20,6 @@ private:
 	~Manager_sentence();
 private:
 	std::vector<std::string> sentence_pool;
+	int idx = 0;
 };
 

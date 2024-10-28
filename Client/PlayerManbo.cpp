@@ -38,7 +38,7 @@ PlayerManbo::PlayerManbo(PlayerId id):Player(id)
 	status_machine.register_status(ids[7], new RunRight(this));
 	status_machine.entry("idle_right");
 
-	setPos(route.get_cur());
+	setPos(route.get_cur_pos());
 
 }
 

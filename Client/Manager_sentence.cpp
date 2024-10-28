@@ -38,10 +38,15 @@ void Manager_sentence::set_text(const std::string& text)
     //}
 }
 
-std::string* Manager_sentence::get_sentence(int idx)
+std::string* Manager_sentence::get_sentence()
 {
     if (idx < 0 || idx >= sentence_pool.size())return nullptr;
     return &(sentence_pool[idx]);
+}
+
+void Manager_sentence::add_idx()
+{
+    idx++;
 }
 
 int Manager_sentence::get_w_sentence(int idex)

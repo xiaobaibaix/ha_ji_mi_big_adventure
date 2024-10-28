@@ -10,6 +10,8 @@ public:
 
 	void restart();
 
+	std::function<void()> get_time_out();
+
 	void set_wait_time(float val);
 
 	void set_one_shot(bool flag);

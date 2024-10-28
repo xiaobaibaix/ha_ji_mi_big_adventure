@@ -37,7 +37,6 @@ public:
 	void setSpeed(const Vector2D& speed);
 	void setPos(const Vector2D& pos);
 	void setMoveTime(float time);
-	void addMoveTime(float time);
 	void set_animation(std::string id);
 	void set_size(const Vector2D& size);
 
@@ -49,8 +48,6 @@ protected:
 protected:
 	Timer timer;//单词敲击完以后给予的移动时间
 
-	float t = 0;//添加的时间
-
 	PlayerId id = PlayerId::None;
 
 	Vector2D pos;
@@ -59,7 +56,6 @@ protected:
 	Vector2D dir;
 
 	bool is_can_move = false;
-
 
 	bool is_keydown = false;
 	int key_code = -1;

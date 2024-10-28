@@ -105,6 +105,12 @@ void Sentence::add_idx()
 
 void Sentence::set_sentence(std::string* str)
 {
+    for (auto it = tex_pool.begin(); it != tex_pool.end();++it) {
+        SDL_Texture* tex=it->second.tex;
+        SDL_DestroyTexture(tex);
+    }
+    idx_cur = 0;
+    tex_pool.clear();
 	this->str = str;
 	generate_face();
 }

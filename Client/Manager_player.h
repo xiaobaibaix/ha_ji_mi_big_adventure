@@ -21,13 +21,15 @@ public:
 
 	void on_draw();
 
-
+	Player* get_other_player();
 private:
 	Manager_player();
 	~Manager_player();
 
 private:
+	Timer timer_input;
 	std::string client_id;
+	std::string word;
 
 	int progress_1 = -1;
 	int progress_2 = -1;
@@ -39,5 +41,7 @@ private:
 	Sentence* cur_sentence = nullptr;
 
 	std::unordered_map<std::string, Player*> player_pool;
+	Player* other = nullptr;
+	Player* self = nullptr;
 };
 

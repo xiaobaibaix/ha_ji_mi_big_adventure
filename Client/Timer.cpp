@@ -4,6 +4,12 @@
 void Timer::restart() {
 	pass_time = 0;
 	shotted = false;
+	paused = false;
+}
+
+std::function<void()> Timer::get_time_out()
+{
+	return on_timeout;
 }
 
 void Timer::set_wait_time(float val) {

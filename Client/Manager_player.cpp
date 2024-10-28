@@ -20,8 +20,30 @@ Manager_player::Manager_player()
 
     cur_sentence = new Sentence();
 
-    cur_sentence->set_sentence(manager_sentence->get_sentence(0));
+    cur_sentence->set_sentence(manager_sentence->get_sentence());
     cur_sentence->set_pos({ 0,380 });
+
+    timer_input.set_one_shot(false);
+    timer_input.set_wait_time(0.2);
+    timer_input.set_on_timeout(
+        [&]() {
+            char c = cur_sentence->get_char();
+            cur_sentence->add_idx();
+            if (c == ' ' || c == '.') {
+                if(self)self->setMoveTime(0.8);
+                if (c == '.') {
+                    Manager_sentence::instance()->add_idx();
+                    cur_sentence->set_sentence(Manager_sentence::instance()->get_sentence());
+                }
+                if (client_id[0] == '1') {
+                    progress_1++;
+                }
+                else {
+                    progress_2++;
+                }
+            }
+        }
+    );
 }
 
 Manager_player::~Manager_player()
@@ -37,19 +59,21 @@ void Manager_player::setPlayer(const std::string& id)
 {
     if (id[0] == '1') {
         std::cout << "creat player hajimi successful!" << std::endl;
-        player_pool["hajimi"] = new PlayerHajimi(Player::PlayerId::Self);
-        player_pool["manbo"] = new PlayerManbo(Player::PlayerId::Other);
+        player_pool["hajimi"] = self= new PlayerHajimi(Player::PlayerId::Self);
+        player_pool["manbo"] = other=new PlayerManbo(Player::PlayerId::Other);
         client_id = '1';
         progress_1 = 0;
+        progress_2 = 0;
         Camera* camera = Manager_game::instance()->get_camera();
         camera->move_to({ player_pool["hajimi"]->getPosition().x - camera->get_size().x / 2+ player_pool["hajimi"]->get_size().x/2,
             player_pool["hajimi"]->getPosition().y - camera->get_size().y / 2 + player_pool["hajimi"]->get_size().y / 2 });
     }
     else if(id[0]=='2') {
         std::cout << "creat player manbo successful!" << std::endl;
-        player_pool["hajimi"] = new PlayerHajimi(Player::PlayerId::Other);
-        player_pool["manbo"] = new PlayerManbo(Player::PlayerId::Self);
+        player_pool["hajimi"] =other= new PlayerHajimi(Player::PlayerId::Other);
+        player_pool["manbo"] = self=new PlayerManbo(Player::PlayerId::Self);
         client_id = '2';
+        progress_1 = 0;
         progress_2 = 0;
         Camera* camera = Manager_game::instance()->get_camera();
         camera->move_to({ player_pool["manbo"]->getPosition().x - camera->get_size().x / 2 + player_pool["manbo"]->get_size().x / 2,
@@ -76,8 +100,8 @@ void Manager_player::on_input(const SDL_Event* event)
 
 void Manager_player::on_update(double delta_time)
 {
+    timer_input.on_update(delta_time);
     if (!is_net_init) {
-        // 发送POST请求到/login路由
         auto res_login = client->Post("/login");
         if (res_login && res_login->status == 200) {
             std::cout << "login successful: " << res_login->body << std::endl;
@@ -88,46 +112,39 @@ void Manager_player::on_update(double delta_time)
         }
         is_net_init = true;
     }
-    if (!can_game) {
-        // 发送POST请求到/login路由
-        auto res_login = client->Post("/can_game");
-        if (res_login && res_login->status == 200) {
-            std::cout << "game successful: " << res_login->body << std::endl;
-            if (res_login->body.c_str()[0] == '1')can_game = true;
-            else can_game = false;
-        }
-        else {
-            std::cerr << "Login Failed" << std::endl;
-        }
-    }
+
     for (auto& player : player_pool) {
         player.second->on_update(delta_time);
-        if (player.second->getId() == Player::PlayerId::Self) {
+        if (player.second->getId() == Player::PlayerId::Self) {//本机
             char c = player.second->pressed_key_code();
-            std::cout <<"sentence next char: " << cur_sentence->get_char() << std::endl;
             if (c != '\0'&&cur_sentence->get_char()==c) {
-                player.second->addMoveTime(0.8);
+                word.push_back(c);
                 cur_sentence->add_idx();
-                if (client_id[0] == '1') {
-                    progress_1++;
+                if (c == ' '|| c == '.') {
+                    word.clear();
+                    player.second->setMoveTime(0.8);
+                    if (c == '.') {
+                        Manager_sentence::instance()->add_idx();
+                        cur_sentence->set_sentence(Manager_sentence::instance()->get_sentence());
+                    }
+                    if (client_id[0] == '1') {
+                        progress_1++;
+                    }
+                    else {
+                        progress_2++;
+                    }
                 }
-                else if(client_id[0]=='2') {
-                    progress_2++;
-                }
-                std::cout << "输入成功！:" <<c<< std::endl;
             }
         }
-        else {
-
+        else {//其他
             if (client_id[0] == '1') {
-                // 发送POST请求到/update_1路由
                 std::string update_1_body = std::to_string(progress_1); // 示例数据
                 auto res_update_1 = client->Post("/update_1", update_1_body, "text/plain");
                 if (res_update_1 && res_update_1->status == 200) {
-                    //std::cout << "Update 1 Response: " << res_update_1->body << std::endl;
-                    if (std::stoi(res_update_1->body)-progress_2>0) {
-                        player.second->addMoveTime(0.8);
-                        progress_2 = std::stoi(res_update_1->body);
+                    int progress = std::stoi(res_update_1->body);
+                    if (progress - progress_2 > 0) {
+                        if (other)other->setMoveTime(0.8);
+                        progress_2 = progress;
                     }
                 }
                 else {
@@ -135,14 +152,13 @@ void Manager_player::on_update(double delta_time)
                 }
             }
             else {
-                // 发送POST请求到/update_2路由
                 std::string update_2_body = std::to_string(progress_2); // 示例数据
                 auto res_update_2 = client->Post("/update_2", update_2_body, "text/plain");
                 if (res_update_2 && res_update_2->status == 200) {
-                    //std::cout << "Update 2 Response: " << res_update_2->body << std::endl;
-                    if (std::stoi(res_update_2->body) - progress_1 > 0) {
-                        player.second->addMoveTime(0.8);
-                        progress_1 = std::stoi(res_update_2->body);
+                    int progress = std::stoi(res_update_2->body);
+                    if (progress - progress_1 > 0) {
+                        if (other)other->setMoveTime(0.8);
+                        progress_1 = progress;
                     }
                 }
                 else {
@@ -161,3 +177,9 @@ void Manager_player::on_draw()
 
     cur_sentence->render_str_tex();
 }
+
+Player* Manager_player::get_other_player()
+{
+    return other;
+}
+

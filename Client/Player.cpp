@@ -9,15 +9,11 @@ Player::Player(Player::PlayerId id):id(id)
     timer.set_on_timeout(
         [&]() {
             is_can_move = false;
-            std::cout << "½áÊøÐÐ×ß£¡" << std::endl;
-            t -= 0.8;
-            if (t > 0) {
-                setMoveTime(0.8);
-            }
         }
     );
+    timer.pause();
 
-    setPos(route.get_cur());
+    setPos(route.get_cur_pos());
     size = { 96,96 };
 }
 
@@ -87,11 +83,11 @@ void Player::on_update(double delta_time)
 {
     timer.on_update(delta_time);
     if (is_can_move) {
-        dir = route.get_move_dir(pos);
-        if (dir.x == 0 && dir.y == 0) {
+        if ((route.get_cur_pos() - pos).length() <= 0.05) {
+            pos = route.get_cur_pos();
             route.add_idex();
-            dir = route.get_move_dir(pos);
         }
+        dir = route.get_move_dir(pos);
         speed = dir * SPEED;
         pos += speed * delta_time;
     }
@@ -170,7 +166,6 @@ char Player::pressed_key_code()
 
 char Player::get_press_key_code()
 {
-    if (key_code == -1)return '\0';
     return key_value[key_code];
 }
 
@@ -182,7 +177,6 @@ bool Player::can_move()
 Vector2D Player::get_move_dir()
 {
     return dir;
-   // return Vector2D(route.get_cur()-pos);
 }
 
 StatusMachine* Player::get_statusMachine()
@@ -200,12 +194,6 @@ void Player::setMoveTime(float time)
     timer.set_wait_time(time);
     timer.restart();
     is_can_move = true;
-}
-
-void Player::addMoveTime(float time)
-{
-    if(t==0)setMoveTime(time);
-    t += time;
 }
 
 void Player::set_animation(std::string id)
