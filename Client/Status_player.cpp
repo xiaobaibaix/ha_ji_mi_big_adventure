@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Manager_player.h"
 
+#include "Manager_resource.h"
+#include <random>
+
 Status::Status(Player* player):player(player)
 {
 }
@@ -123,6 +126,14 @@ void RunLeft::on_enter()
 {
 	player->set_animation("run_left");
 	//std::cout << "enter the run left!" << std::endl;
+	std::default_random_engine engine;
+
+	std::uniform_int_distribution<int> distribution(1, 100);
+	int random_number = distribution(engine);
+
+	if(random_number>60)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
+	if (random_number > 90)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
+
 }
 
 void RunLeft::on_exit()
@@ -149,6 +160,13 @@ void RunRight::on_enter()
 {
 	player->set_animation("run_right");
 	//std::cout << "enter the run right!" << std::endl;
+	std::default_random_engine engine;
+
+	std::uniform_int_distribution<int> distribution(1, 100);
+	int random_number = distribution(engine);
+
+	if (random_number > 60)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
+	if (random_number > 90)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
 }
 
 void RunRight::on_exit()
@@ -175,6 +193,13 @@ void RunUp::on_enter()
 {
 	player->set_animation("run_back");
 	//std::cout << "enter the run back!" << std::endl;
+	std::default_random_engine engine;
+
+	std::uniform_int_distribution<int> distribution(1, 100);
+	int random_number = distribution(engine);
+
+	if (random_number > 60)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
+	if (random_number > 90)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
 }
 
 void RunUp::on_exit()
@@ -201,6 +226,13 @@ void RunDown::on_enter()
 {
 	player->set_animation("run_front");
 	//std::cout << "enter the run front!" << std::endl;
+	std::default_random_engine engine;
+
+	std::uniform_int_distribution<int> distribution(1, 100);
+	int random_number = distribution(engine);
+
+	if (random_number > 60)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
+	if (random_number > 90)Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("1p_win"), 0);
 }
 
 void RunDown::on_exit()

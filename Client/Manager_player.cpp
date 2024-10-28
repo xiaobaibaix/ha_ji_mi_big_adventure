@@ -3,6 +3,7 @@
 #include "PlayerHajimi.h"
 #include "PlayerManbo.h"
 #include "Manager_game.h"
+#include "Manager_resource.h"
 
 Manager_player::Manager_player()
 {
@@ -44,6 +45,8 @@ Manager_player::Manager_player()
             }
         }
     );
+
+    Mix_PlayMusic((Mix_Music*)(Manager_resource::instance()->get_music_pool("bgm")), -1);
 }
 
 Manager_player::~Manager_player()
@@ -125,9 +128,11 @@ void Manager_player::on_update(double delta_time)
                     progress_1 = 0;
                     progress_2 = 0;
                 }
+                Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("ui_fight"), 0);
+
             }
             else {
-                std::cerr << "can not game!" << std::endl;
+                //std::cerr << "can not game!" << std::endl;
             }
         }
         else {

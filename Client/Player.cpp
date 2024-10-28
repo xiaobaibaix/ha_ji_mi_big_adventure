@@ -3,6 +3,9 @@
 #include "Manager_game.h"
 #include "Manager_resource.h"
 #include "Keys.h"
+
+#include <random>
+
 Player::Player(Player::PlayerId id):id(id)
 {
     timer.set_one_shot(true);
@@ -72,7 +75,30 @@ void Player::on_input(const SDL_Event* event)
         else {
             key_code = -1;
         }
+
+        {
+            std::default_random_engine engine;
+
+            std::uniform_int_distribution<int> distribution(1, 4);
+            int random_number = distribution(engine);
+            switch (random_number) {
+            case 1:
+                Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("click_1"), 0);
+                break;
+            case 2:
+                Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("click_2"), 0);
+                break;
+            case 3:
+                Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("click_3"), 0);
+                break;
+            case 4:
+                Mix_PlayChannel(-1, (Mix_Chunk*)Manager_resource::instance()->get_sound_pool("click_4"), 0);
+                break;
+            }
+        }
+
         break;
+
     default:
         key_code = -1;
     }

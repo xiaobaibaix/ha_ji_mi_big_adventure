@@ -14,6 +14,9 @@ public:
     SDL_Texture* find_texture(std::string id);
     Atlas* find_atlas(std::string id);
     std::string find_font_path(std::string id);
+    const Mix_Chunk* get_sound_pool(std::string id) const;
+
+    const Mix_Music* get_music_pool(std::string id) const;
 
 private:
 
@@ -31,7 +34,9 @@ private:
 
 private:
     std::unordered_map<std::string,SDL_Texture*> img_pool;
-    std::unordered_map<std::string,Atlas*> atlas_pool;
+    std::unordered_map<std::string, Atlas*> atlas_pool;
+    std::unordered_map<std::string, Mix_Chunk*> sound_pool;
+    std::unordered_map<std::string, Mix_Music*> music_pool;
 
     std::unordered_map<std::string, std::string> id_font_path = {
         {"font","res/IPix.ttf"}

@@ -5,6 +5,23 @@
 
 void Manager_resource::load()
 {
+	std::unordered_map<std::string, std::string> id_sound_path = {
+		{"1p_win","res/1p_win.mp3"},
+		{"2p_win","res/2p_win.mp3"},
+		{"click_1","res/click_1.mp3"},
+		{"click_2","res/click_2.mp3"},
+		{"click_3","res/click_3.mp3"},
+		{"click_4","res/click_4.mp3"},
+		{"ui_1","res/ui_1.mp3"},
+		{"ui_2","res/ui_2.mp3"},
+		{"ui_3","res/ui_3.mp3"},
+		{"ui_fight","res/ui_fight.mp3"},
+	};
+
+	std::unordered_map<std::string, std::string> id_music_path = {
+		{"bgm","res/bgm.mp3"}
+	};
+
 	std::unordered_map<std::string, std::string> id_img_path = {
 		{"bk","res/background.png"},
 		{"ui_1","res/ui_1.png"},
@@ -68,7 +85,14 @@ void Manager_resource::load()
 		}
 
 	}
+	//ÒôÆµ¼ÓÔØ
+	for (auto& path : id_sound_path) {
+		sound_pool[path.first] = Mix_LoadWAV(path.second.c_str());
+	}
 
+	for (auto& path : id_music_path) {
+		music_pool[path.first] = Mix_LoadMUS(path.second.c_str());
+	}
 }
 
 SDL_Texture* Manager_resource::find_texture(std::string id)
@@ -89,6 +113,20 @@ std::string Manager_resource::find_font_path(std::string id)
 {
 	const auto& itor = id_font_path.find(id);
 	if (itor == id_font_path.end())return nullptr;
+	return itor->second;
+}
+
+const Mix_Chunk* Manager_resource::get_sound_pool(std::string id) const
+{
+	const auto& itor = sound_pool.find(id);
+	if (itor == sound_pool.end())return nullptr;
+	return itor->second;
+}
+
+const Mix_Music* Manager_resource::get_music_pool(std::string id) const
+{
+	const auto& itor = music_pool.find(id);
+	if (itor == music_pool.end())return nullptr;
 	return itor->second;
 }
 

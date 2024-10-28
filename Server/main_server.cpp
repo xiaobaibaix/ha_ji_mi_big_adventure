@@ -10,7 +10,10 @@ std::mutex g_mutex;
 std::string str_text;
 
 int progress_1 = -1;
+float x_1 = 0, y_1 = 0;
 int progress_2 = -1;
+float x_2 = 0, y_2 = 0;
+
 
 int main(int argc,char**argv) {
 	//ÎÄ¼ş¶ÁÈ¡
